@@ -1,8 +1,10 @@
 const Header = () => {
   return (
-    <h1>
-      Header Placeholder
-    </h1>
+    <div className="list-books">
+      <div className="list-books-title">
+        <h1>MyReads</h1>
+      </div>
+    </div>
   )
 }
 
