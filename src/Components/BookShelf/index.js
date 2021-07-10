@@ -15,8 +15,8 @@ const Shelf = (props) => {
           {
             books
             && books.map((book) => (
-              <li>
-                <Book book={book} />
+              <li key={book.id}>
+                <Book book={book} key={book.id} />
               </li>))
           }
         </ol>
