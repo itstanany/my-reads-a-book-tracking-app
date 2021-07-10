@@ -25,7 +25,7 @@ const Book = (props) => {
       </div>
       {authors
         && authors.map((author) => (
-          <div className="book-authors">
+          <div className="book-authors" key={author}>
             {author}
           </div>
         ))}
