@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookShelf from '../BookShelf';
 import {
@@ -17,13 +17,14 @@ const getAllBooks = async () => {
 
 const Home = () => {
   const [orderedBooks, setOrderedBooks] = useState({});
-  useEffect(() => {
-    const getInitialData = async () => {
-      const ordBooks = await getAllBooks();
-      setOrderedBooks(ordBooks);
-    }
-    getInitialData();
+  const updateBookCollections = useCallback(async () => {
+    const ordBooks = await getAllBooks();
+    setOrderedBooks(ordBooks);
   }, []);
+
+  useEffect(() => {
+    updateBookCollections();
+  }, [updateBookCollections]);
 
   return (
     <div className="list-books">
