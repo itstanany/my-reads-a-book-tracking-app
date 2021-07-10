@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookShelf from '../BookShelf';
 import {
-  get, getAll, update,
+  getAll, update,
 } from '../../BooksAPI';
 
 const getAllBooks = async () => {
@@ -24,7 +24,13 @@ const Home = () => {
 
   useEffect(() => {
     updateBookCollections();
-  }, [updateBookCollections]);
+  }, []);
+
+  const onShelfChange = useCallback(async (e, book) => {
+    await update(book, e.target.value);
+    await updateBookCollections();
+  }, [updateBookCollections])
+
 
   return (
     <div className="list-books">
@@ -33,16 +39,19 @@ const Home = () => {
           <BookShelf
             title="Currently Reading"
             books={orderedBooks.currentlyReading || []}
+            onShelfChange={onShelfChange}
           />
 
           <BookShelf
             title="Want to Read"
             books={orderedBooks.wantToRead || []}
+            onShelfChange={onShelfChange}
           />
 
           <BookShelf
             title="Read"
             books={orderedBooks.read || []}
+            onShelfChange={onShelfChange}
           />
         </div>
       </div>

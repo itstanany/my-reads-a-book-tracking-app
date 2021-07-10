@@ -1,7 +1,13 @@
 const Book = (props) => {
   const {
-    shelf, title, authors, imageLinks,
-  } = props.book;
+    book,
+    onShelfChange,
+  } = props;
+
+  const {
+    shelf, imageLinks, title, authors,
+  } = book;
+
   return (
     <div className="book">
       <div className="book-top">
@@ -11,7 +17,7 @@ const Book = (props) => {
           backgroundImage: `url("${imageLinks.smallThumbnail}")`
         }}></div>
         <div className="book-shelf-changer">
-          <select value={shelf}>
+          <select value={shelf} onChange={(e) => onShelfChange(e, book)}>
             <option value="move" disabled>Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>

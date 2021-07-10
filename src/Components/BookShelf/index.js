@@ -2,7 +2,7 @@ import Book from '../BookComponent';
 
 const Shelf = (props) => {
   const {
-    title, books,
+    title, books, onShelfChange,
   } = props;
 
   return (
@@ -16,7 +16,7 @@ const Shelf = (props) => {
             books
             && books.map((book) => (
               <li key={book.id}>
-                <Book book={book} key={book.id} />
+                <Book book={book} key={book.id} onShelfChange={onShelfChange} />
               </li>))
           }
         </ol>
