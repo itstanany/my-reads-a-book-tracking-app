@@ -18,11 +18,11 @@ const getAllBooks = async () => {
 const Home = () => {
   const [orderedBooks, setOrderedBooks] = useState({});
   useEffect(() => {
-    const getInitailData = async () => {
+    const getInitialData = async () => {
       const ordBooks = await getAllBooks();
       setOrderedBooks(ordBooks);
     }
-    getInitailData();
+    getInitialData();
   }, []);
 
   return (
