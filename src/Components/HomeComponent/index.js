@@ -1,5 +1,9 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookShelf from '../BookShelf';
+import {
+  get, getAll, update,
+} from '../../BooksAPI';
 
 const books = [
   {
@@ -323,24 +327,43 @@ const books = [
   }
 ]
 
+const getAllBooks = async () => {
+  const books = await getAll();
+  const orderedBooks = {
+    currentlyReading: books.filter((book) => book.shelf === 'currentlyReading'),
+    wantToRead: books.filter((book) => book.shelf === 'wantToRead'),
+    read: books.filter((book) => book.shelf === 'read')
+  };
+  return orderedBooks;
+}
+
 const Home = () => {
+  const [orderedBooks, setOrderedBooks] = useState({});
+  useEffect(() => {
+    const getInitailData = async () => {
+      const ordBooks = await getAllBooks();
+      setOrderedBooks(ordBooks);
+    }
+    getInitailData();
+  }, []);
+
   return (
     <div className="list-books">
       <div className="list-books-content">
         <div>
           <BookShelf
             title="Currently Reading"
-            books={books.filter((book) => book.shelf === 'currentlyReading')}
+            books={orderedBooks.currentlyReading || []}
           />
 
           <BookShelf
             title="Want to Read"
-            books={books.filter((book) => book.shelf === 'wantToRead')}
+            books={orderedBooks.wantToRead || []}
           />
 
           <BookShelf
             title="Read"
-            books={books.filter((book) => book.shelf === 'read')}
+            books={orderedBooks.read || []}
           />
         </div>
       </div>
