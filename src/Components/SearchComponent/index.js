@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getAll, search, update } from '../../BooksAPI';
 import Book from '../BookComponent';
 
@@ -71,6 +72,13 @@ const Search = () => {
             })
           }
         </ol>
+      </div>
+      <div className="open-search">
+        <Link
+          to="/"
+        >
+          Back to Main Page
+        </Link>
       </div>
     </div>)
 }

@@ -57,6 +57,13 @@ body,
   bottom: 25px;
 }
 
+.open-search a {
+  padding: 5px;
+  border-radius: 10px;
+  color: #fff;
+  background-color: #111;
+}
+
 .open-search button {
   display: block;
   width: 50px;
