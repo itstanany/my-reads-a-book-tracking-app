@@ -34,16 +34,27 @@ const getAllBooks = async () => {
 
 const Home = () => {
   const [orderedBooks, setOrderedBooks] = useState({});
+
   const updateBookCollections = useCallback(async () => {
+    /**
+     * Method of updating state variable with current boocks collection
+     */
     const ordBooks = await getAllBooks();
     setOrderedBooks(ordBooks);
   }, []);
 
   useEffect(() => {
+    /**
+     * Get initial data and update state variable
+     */
     updateBookCollections();
   }, [updateBookCollections]);
 
   const onShelfChange = useCallback(async (e, book) => {
+    /**
+     * Send update to Back-end
+     * get up-tp-date book collection
+     */
     const value = e.target.value;
     await update(book, value);
     await updateBookCollections();
