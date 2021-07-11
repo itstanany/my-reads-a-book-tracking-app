@@ -32,27 +32,32 @@ const Search = () => {
     /**
      * Get search results whenever user enter new search term
      */
+    let didCancel = false;
+
     const getSearchResults = async (query) => {
       if (query) {
         const result = await search(query);
-        if (result.error) {
-          setResult([]);
-          return;
+        if (!didCancel) {
+          if (result.error) {
+            setResult([]);
+            return;
+          }
+          let updated = await updateResultSearch(result);
+          setResult(updated);
         }
-        let updated = await updateResultSearch(result);
-        setResult(updated);
       } else {
         setResult([]);
       }
     }
     getSearchResults(query)
+    return () => { didCancel = true; }; // Remember if we start fetching something else
   }, [query])
 
   const onUserInput = useCallback(async (e) => {
     /**
      * Update query state variable as user hits a stroke
      */
-    setQuery(e.target.value);
+    setQuery(e.target.value || '');
   }, []);
 
   const onShelfChange = useCallback(async (e, book, index) => {
