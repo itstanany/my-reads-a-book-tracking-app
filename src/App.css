@@ -87,10 +87,7 @@ body,
 /* search page */
 
 .search-books-bar {
-  position: fixed;
   width: 100%;
-  /* comment top property to make it after header component in normal flow */
-  /* top: 0; */
   left: 0;
   z-index: 5;
   display: flex;
