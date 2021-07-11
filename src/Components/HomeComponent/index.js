@@ -1,3 +1,10 @@
+/**
+ * Main Page Component
+ * It Displays Different shelves of books
+ * Each shelve contains a list of books
+ * User can Change/remove any book from a shelve
+ */
+
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookShelf from '../BookShelf';
