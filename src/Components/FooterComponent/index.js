@@ -5,7 +5,7 @@
 
 const Footer = () => {
   return (
-    <div class="footer">
+    <div className="footer">
       <small>
         Full Source Code of This Project Con be found at {' '}
         <a
