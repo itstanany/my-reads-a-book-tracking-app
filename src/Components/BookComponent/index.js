@@ -2,6 +2,7 @@ const Book = (props) => {
   const {
     book,
     onShelfChange,
+    index,
   } = props;
 
   const {
@@ -14,10 +15,10 @@ const Book = (props) => {
         <div className="book-cover" style={{
           width: 128,
           height: 193,
-          backgroundImage: `url("${imageLinks.smallThumbnail}")`
+          backgroundImage: `url("${imageLinks && imageLinks.smallThumbnail}")`
         }}></div>
         <div className="book-shelf-changer">
-          <select value={shelf} onChange={(e) => onShelfChange(e, book)}>
+          <select value={shelf || 'none'} onChange={(e) => onShelfChange(e, book, index)}>
             <option value="move" disabled>Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>
