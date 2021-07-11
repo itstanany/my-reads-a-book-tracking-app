@@ -13,6 +13,16 @@ import {
 } from '../../BooksAPI';
 
 const getAllBooks = async () => {
+  /**
+   * Get All User books from the back-end
+   * return => Object of properties:
+   *    currentlyReading: Array of Objects,
+   *       each object represents a book object with shelf property "currentlyReading"
+   *    wantToRead: Array of Object,
+   *       each object represents a book object with shelf property "wantToRead"
+   *    read: Array of Object,
+   *       each object represents a book object with shelf property "read"
+   */
   const books = await getAll();
   const orderedBooks = {
     currentlyReading: books.filter((book) => book.shelf === 'currentlyReading'),
