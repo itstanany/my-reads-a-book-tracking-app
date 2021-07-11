@@ -1,52 +1,59 @@
-import { useCallback, useState } from 'react';
-import { search, update } from '../../BooksAPI';
+import { useCallback, useEffect, useState } from 'react';
+import { getAll, search, update } from '../../BooksAPI';
 import Book from '../BookComponent';
 
+
+const updateResultSearch = async (result) => {
+  let updated = result;
+  const shelves = await getAll();
+  shelves.forEach((book, index) => {
+    result.forEach((rowBook, index2) => {
+      if (rowBook.id === book.id) updated[index2] = shelves[index];
+    })
+  });
+  return updated;
+}
+
 const Search = () => {
-  // const [query, setQuery] = useState('');
+  const [query, setQuery] = useState('');
   const [result, setResult] = useState([]);
 
 
-  /**
-   * get() of each search result and replace it to contain "SHELF" property
-   *    ~= 20 Ajax calls after initial search query
-   * getAll() and compare with search results
-   *    ~= n of shelves' books "filtering process"
-   */
-
-  // const find = useCallback(async (query) => {
-  //   const result = await search(query);
-  //   setResult(result);
-  // }, []);
+  useEffect(() => {
+    const getSearchResults = async (query) => {
+      if (query) {
+        const result = await search(query);
+        if (result.error) {
+          setResult([]);
+          return;
+        }
+        let updated = await updateResultSearch(result);
+        setResult(updated);
+      } else {
+        setResult([]);
+      }
+    }
+    getSearchResults(query)
+  }, [query])
 
   const onUserInput = useCallback(async (e) => {
-    if (e.target.value) {
-      const result = await search(e.target.value);
-      // alert(JSON.stringify(result));
-      setResult(result.error ? [] : result);
-    } else {
-      setResult([]);
-    }
+    setQuery(e.target.value);
   }, []);
 
-  const onShelfChange = useCallback(async (e, book) => {
-    await update(book, e.target.value);
-    // await updateBookCollections();
-  }, [])
+  const onShelfChange = useCallback(async (e, book, index) => {
+    const value = e.target.value;
+    await update(book, value);
+    setResult((prevResult) => {
+      const updatedResult = [...prevResult]
+      updatedResult[index].shelf = value;
+      return updatedResult;
+    });
+  }, []);
 
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
         <div className="search-books-input-wrapper">
-          {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
           <input
             type="text"
             placeholder="Search by title or author"
@@ -59,10 +66,8 @@ const Search = () => {
         <ol className="books-grid">
           {
             result
-            && result.map((book) => {
-              console.log(book);
-              console.log(book.imageLinks);
-              return <Book book={book} onShelfChange={onShelfChange} />
+            && result.map((book, index) => {
+              return <Book key={book.id} book={book} onShelfChange={onShelfChange} index={index} />
             })
           }
         </ol>
