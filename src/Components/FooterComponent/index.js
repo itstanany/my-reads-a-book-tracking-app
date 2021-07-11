@@ -1,3 +1,8 @@
+/**
+ * Footer component
+ * It represents static footer with a link to project repository
+ */
+
 const Footer = () => {
   return (
     <div class="footer">
