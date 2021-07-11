@@ -1,3 +1,10 @@
+/**
+ * Book Static component
+ * It displays a book details
+ */
+
+import PropTypes from 'prop-types';
+
 const Book = (props) => {
   const {
     book,
@@ -40,3 +47,9 @@ const Book = (props) => {
 }
 
 export default Book;
+
+Book.propTypes = {
+  book: PropTypes.object,
+  onShelfChange: PropTypes.func,
+  index: PropTypes.number,
+}
