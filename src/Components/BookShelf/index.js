@@ -1,3 +1,7 @@
+/**
+ * Static Book Component
+ */
+
 import Book from '../BookComponent';
 
 const Shelf = (props) => {
