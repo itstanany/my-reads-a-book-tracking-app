@@ -24,7 +24,7 @@ const Home = () => {
 
   useEffect(() => {
     updateBookCollections();
-  }, []);
+  }, [updateBookCollections]);
 
   const onShelfChange = useCallback(async (e, book) => {
     const value = e.target.value;
