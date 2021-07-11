@@ -1,7 +1,7 @@
 /**
- * Static Book Component
+ * Static BookShelf Component
  */
-
+import PropTypes from 'prop-types';
 import Book from '../BookComponent';
 
 const Shelf = (props) => {
@@ -29,3 +29,9 @@ const Shelf = (props) => {
 }
 
 export default Shelf;
+
+Shelf.propTypes = {
+  title: PropTypes.string,
+  books: PropTypes.array,
+  onShelfChange: PropTypes.func,
+};
