@@ -27,7 +27,8 @@ const Home = () => {
   }, []);
 
   const onShelfChange = useCallback(async (e, book) => {
-    await update(book, e.target.value);
+    const value = e.target.value;
+    await update(book, value);
     await updateBookCollections();
   }, [updateBookCollections])
 
