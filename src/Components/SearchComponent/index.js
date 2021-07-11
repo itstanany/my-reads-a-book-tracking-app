@@ -1,3 +1,8 @@
+/**
+ * Search component from the library
+ * User can add books to his library
+ */
+
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAll, search, update } from '../../BooksAPI';
@@ -5,6 +10,9 @@ import Book from '../BookComponent';
 
 
 const updateResultSearch = async (result) => {
+  /**
+   * Update the search results with the books in the user collection
+   */
   let updated = result;
   const shelves = await getAll();
   shelves.forEach((book, index) => {
@@ -21,6 +29,9 @@ const Search = () => {
 
 
   useEffect(() => {
+    /**
+     * Get search results whenever user enter new search term
+     */
     const getSearchResults = async (query) => {
       if (query) {
         const result = await search(query);
@@ -38,10 +49,17 @@ const Search = () => {
   }, [query])
 
   const onUserInput = useCallback(async (e) => {
+    /**
+     * Update query state variable as user hits a stroke
+     */
     setQuery(e.target.value);
   }, []);
 
   const onShelfChange = useCallback(async (e, book, index) => {
+    /**
+     * Send user update to back-end
+     * update current search results to reflect user change
+     */
     const value = e.target.value;
     await update(book, value);
     setResult((prevResult) => {
