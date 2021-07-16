@@ -4,7 +4,7 @@ import './App.css';
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/my-reads-a-book-tracking-app">
       <Page />
     </Router>
   )
