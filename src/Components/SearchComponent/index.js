@@ -9,6 +9,9 @@ import { getAll, search, update } from '../../BooksAPI';
 import Book from '../BookComponent';
 
 
+const searchTerms = ['Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games', 'Gandhi', 'Homer', 'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS'
+];
+
 const updateResultSearch = async (result) => {
   /**
    * Update the search results with the books in the user collection
@@ -89,10 +92,18 @@ const Search = () => {
       <div className="search-books-results">
         <ol className="books-grid">
           {
-            result
-            && result.map((book, index) => {
-              return <Book key={book.id} book={book} onShelfChange={onShelfChange} index={index} />
-            })
+            result && result.length > 0
+              ? result.map((book, index) => {
+                return <Book key={book.id} book={book} onShelfChange={onShelfChange} index={index} />
+              })
+              : (<>
+                <h1>
+                  No search result! What about searching for one of the following terms?
+                </h1>
+                <div className="break"></div>
+                {searchTerms.map((term) => <li key={term}>{term}</li>)}
+              </>
+              )
           }
         </ol>
       </div>

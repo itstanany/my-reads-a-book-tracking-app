@@ -209,3 +209,8 @@ button:active {
 .footer {
   text-align: center;
 }
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
