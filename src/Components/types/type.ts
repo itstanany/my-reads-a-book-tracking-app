@@ -17,6 +17,8 @@ type ImageLinksType = {
   "thumbnail": string;
 }
 
+export type ShelfType = "currentlyReading" | 'read' | 'wantToRead' | 'none';
+
 export type BookType = {
   "title": string;
   "subtitle": string;
@@ -41,11 +43,17 @@ export type BookType = {
   "infoLink": string;
   "canonicalVolumeLink": string;
   "id": string;
-  "shelf"?: "currentlyReading" | 'read' | 'wantToRead';
+  "shelf"?: ShelfType;
 };
+
 
 export type OrderedBooksType = {
   currentlyReading: BookType[];
   wantToRead: BookType[];
   read: BookType[];
 }
+
+export type SearchResultType = BookType[] | ({
+  error: string;
+  items: [];
+});

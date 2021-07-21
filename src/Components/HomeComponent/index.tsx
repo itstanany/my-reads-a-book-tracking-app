@@ -11,7 +11,7 @@ import BookShelf from '../BookShelf';
 import {
   getAll, update,
 } from '../../BooksAPI';
-import { BookType, OrderedBooksType } from './home.types';
+import { BookType, OrderedBooksType } from '../types/type';
 
 const getAllBooks: () => Promise<OrderedBooksType> = async () => {
   /**
