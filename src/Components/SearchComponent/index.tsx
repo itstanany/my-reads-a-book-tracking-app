@@ -10,7 +10,7 @@ import {
 import { Link } from 'react-router-dom';
 import { getAll, search, update } from '../../BooksAPI';
 import Book from '../BookComponent';
-import { BookType, SearchResultType, ShelfType } from '../types/type';
+import { BookType, OnShelfChangeType, SearchResultType, ShelfType } from '../types/type';
 
 
 const searchTerms: string[] = ['Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games', 'Gandhi', 'Homer', 'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS'
@@ -67,18 +67,20 @@ const Search: () => JSX.Element = () => {
     setQuery(e.target.value || '');
   }, []);
 
-  const onShelfChange: (e: ChangeEvent<HTMLInputElement>, book: BookType, index: number) => Promise<void> = useCallback(async (e, book, index) => {
+  const onShelfChange: OnShelfChangeType = useCallback(async (e, book, index) => {
     /**
      * Send user update to back-end
      * update current search results to reflect user change
      */
     const value: "currentlyReading" | "read" | "wantToRead" | 'none' = e.target.value as ShelfType;
     await update(book, value);
-    setResult((prevResult: BookType[]) => {
-      const updatedResult: BookType[] = [...prevResult]
-      updatedResult[index].shelf = value;
-      return updatedResult;
-    });
+    if (index !== undefined) {
+      setResult((prevResult: BookType[]) => {
+        const updatedResult: BookType[] = [...prevResult]
+        updatedResult[index].shelf = value;
+        return updatedResult;
+      });
+    }
   }, []);
 
   return (

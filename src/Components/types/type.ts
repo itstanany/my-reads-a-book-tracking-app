@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 type IndustryIdentifierType = {
   type: string;
   identifier: string;
@@ -18,6 +20,9 @@ type ImageLinksType = {
 }
 
 export type ShelfType = "currentlyReading" | 'read' | 'wantToRead' | 'none';
+
+export type OnShelfChangeType = (
+  (e: ChangeEvent<HTMLSelectElement>, book: BookType, index?: number) => Promise<void>);
 
 export type BookType = {
   "title": string;
@@ -57,3 +62,10 @@ export type SearchResultType = BookType[] | ({
   error: string;
   items: [];
 });
+
+
+export type BookPropsTypes = {
+  book: BookType;
+  onShelfChange: OnShelfChangeType;
+  index: number;
+}

@@ -3,9 +3,11 @@
  * It displays a book details
  */
 
-import PropTypes from 'prop-types';
+import { ChangeEvent, ReactNode } from 'react';
+import { BookPropsTypes } from '../types/type';
 
-const Book = (props) => {
+const Book: (props: BookPropsTypes & { children?: ReactNode }) => JSX.Element = (
+  props: BookPropsTypes & { children?: ReactNode }) => {
   const {
     book,
     onShelfChange,
@@ -25,7 +27,7 @@ const Book = (props) => {
           backgroundImage: `url("${imageLinks && imageLinks.smallThumbnail}")`
         }}></div>
         <div className="book-shelf-changer">
-          <select value={shelf || 'none'} onChange={(e) => onShelfChange(e, book, index)}>
+          <select value={shelf || 'none'} onChange={(e: ChangeEvent<HTMLSelectElement>) => onShelfChange(e, book, index)}>
             <option value="move" disabled>Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>
@@ -47,9 +49,3 @@ const Book = (props) => {
 }
 
 export default Book;
-
-Book.propTypes = {
-  book: PropTypes.object,
-  onShelfChange: PropTypes.func,
-  index: PropTypes.number,
-}
