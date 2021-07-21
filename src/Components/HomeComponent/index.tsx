@@ -5,14 +5,15 @@
  * User can Change/remove any book from a shelve
  */
 
-import { useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookShelf from '../BookShelf';
 import {
   getAll, update,
 } from '../../BooksAPI';
+import { BookType, OrderedBooksType } from './home.types';
 
-const getAllBooks = async () => {
+const getAllBooks: () => Promise<OrderedBooksType> = async () => {
   /**
    * Get All User books from the back-end
    * return => Object of properties:
@@ -23,21 +24,23 @@ const getAllBooks = async () => {
    *    read: Array of Object,
    *       each object represents a book object with shelf property "read"
    */
-  const books = await getAll();
+
+  const books: BookType[] = await getAll();
   const orderedBooks = {
-    currentlyReading: books.filter((book) => book.shelf === 'currentlyReading'),
-    wantToRead: books.filter((book) => book.shelf === 'wantToRead'),
-    read: books.filter((book) => book.shelf === 'read')
+    currentlyReading: books.filter((book: BookType) => book.shelf === 'currentlyReading'),
+    wantToRead: books.filter((book: BookType) => book.shelf === 'wantToRead'),
+    read: books.filter((book: BookType) => book.shelf === 'read')
   };
   return orderedBooks;
 }
 
-const Home = () => {
-  const [orderedBooks, setOrderedBooks] = useState({});
 
-  const updateBookCollections = useCallback(async () => {
+const Home: () => JSX.Element = () => {
+  const [orderedBooks, setOrderedBooks] = useState<OrderedBooksType | undefined>(undefined);
+
+  const updateBookCollections: () => Promise<void> = useCallback(async () => {
     /**
-     * Method of updating state variable with current boocks collection
+     * Method of updating state variable with current books collection
      */
     const ordBooks = await getAllBooks();
     setOrderedBooks(ordBooks);
@@ -50,36 +53,36 @@ const Home = () => {
     updateBookCollections();
   }, [updateBookCollections]);
 
-  const onShelfChange = useCallback(async (e, book) => {
+  const onShelfChange: (e: ChangeEvent<HTMLInputElement>, book: BookType) => Promise<void> = useCallback(async (e, book) => {
     /**
      * Send update to Back-end
      * get up-tp-date book collection
      */
-    const value = e.target.value;
+    const value: string = e.target.value;
     await update(book, value);
     await updateBookCollections();
-  }, [updateBookCollections])
+  }, [updateBookCollections]);
 
 
   return (
-    <div className="list-books">
-      <div className="list-books-content">
+    <div className="list-books" >
+      <div className="list-books-content" >
         <div>
           <BookShelf
             title="Currently Reading"
-            books={orderedBooks.currentlyReading || []}
+            books={orderedBooks && (orderedBooks.currentlyReading || [])}
             onShelfChange={onShelfChange}
           />
 
           <BookShelf
             title="Want to Read"
-            books={orderedBooks.wantToRead || []}
+            books={orderedBooks && (orderedBooks.wantToRead || [])}
             onShelfChange={onShelfChange}
           />
 
           <BookShelf
             title="Read"
-            books={orderedBooks.read || []}
+            books={orderedBooks && (orderedBooks.read || [])}
             onShelfChange={onShelfChange}
           />
         </div>
@@ -91,9 +94,7 @@ const Home = () => {
           Add a Book
         </Link>
       </div>
-    </div>
-
-  )
+    </div>)
 }
 
 export default Home;

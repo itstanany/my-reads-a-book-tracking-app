@@ -30,8 +30,8 @@ const Shelf = (props) => {
 
 export default Shelf;
 
-Shelf.propTypes = {
-  title: PropTypes.string,
-  books: PropTypes.array,
-  onShelfChange: PropTypes.func,
-};
+// Shelf.propTypes = {
+//   title: PropTypes.string,
+//   books: PropTypes.array,
+//   onShelfChange: PropTypes.func,
+// };
