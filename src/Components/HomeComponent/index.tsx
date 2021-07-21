@@ -5,13 +5,13 @@
  * User can Change/remove any book from a shelve
  */
 
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookShelf from '../BookShelf';
 import {
   getAll, update,
 } from '../../BooksAPI';
-import { BookType, OrderedBooksType } from '../types/type';
+import { BookType, OnShelfChangeType, OrderedBooksType } from '../types/type';
 
 const getAllBooks: () => Promise<OrderedBooksType> = async () => {
   /**
@@ -35,8 +35,14 @@ const getAllBooks: () => Promise<OrderedBooksType> = async () => {
 }
 
 
+const initialOrderedBook: OrderedBooksType = {
+  wantToRead: [],
+  read: [],
+  currentlyReading: [],
+};
+
 const Home: () => JSX.Element = () => {
-  const [orderedBooks, setOrderedBooks] = useState<OrderedBooksType | undefined>(undefined);
+  const [orderedBooks, setOrderedBooks] = useState<OrderedBooksType>(initialOrderedBook);
 
   const updateBookCollections: () => Promise<void> = useCallback(async () => {
     /**
@@ -53,7 +59,7 @@ const Home: () => JSX.Element = () => {
     updateBookCollections();
   }, [updateBookCollections]);
 
-  const onShelfChange: (e: ChangeEvent<HTMLInputElement>, book: BookType) => Promise<void> = useCallback(async (e, book) => {
+  const onShelfChange: OnShelfChangeType = useCallback(async (e, book) => {
     /**
      * Send update to Back-end
      * get up-tp-date book collection
@@ -70,19 +76,19 @@ const Home: () => JSX.Element = () => {
         <div>
           <BookShelf
             title="Currently Reading"
-            books={orderedBooks && (orderedBooks.currentlyReading || [])}
+            books={orderedBooks.currentlyReading}
             onShelfChange={onShelfChange}
           />
 
           <BookShelf
             title="Want to Read"
-            books={orderedBooks && (orderedBooks.wantToRead || [])}
+            books={orderedBooks.wantToRead}
             onShelfChange={onShelfChange}
           />
 
           <BookShelf
             title="Read"
-            books={orderedBooks && (orderedBooks.read || [])}
+            books={orderedBooks.read}
             onShelfChange={onShelfChange}
           />
         </div>
