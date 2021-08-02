@@ -4,9 +4,9 @@
 
 ## Video Demo
 
-A video walk through is available here: including installation and app overview.
+A video walk through is available here: https://youtu.be/-sTkPmOTCBA including installation and app overview.
 
-[![]()]()
+[![Cideo Preview](./public/imgs/video-screenshot.png)](https://youtu.be/-sTkPmOTCBA)
 
 ## What We will be building
 
