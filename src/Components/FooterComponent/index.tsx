@@ -3,7 +3,8 @@
  * It represents static footer with a link to project repository
  */
 
-const Footer = () => {
+
+const Footer: () => JSX.Element = () => {
   return (
     <div className="footer">
       <small>

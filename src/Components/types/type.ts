@@ -69,3 +69,9 @@ export type BookPropsTypes = {
   onShelfChange: OnShelfChangeType;
   index: number;
 }
+
+export type BookShelfPropsTypes = {
+  title: string;
+  books: BookType[];
+  onShelfChange: OnShelfChangeType;
+}

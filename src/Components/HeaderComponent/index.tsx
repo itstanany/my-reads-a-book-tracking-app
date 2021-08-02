@@ -3,7 +3,7 @@
  * It represents static header with title
  */
 
-const Header = () => {
+const Header: () => JSX.Element = () => {
   return (
     <div className="list-books">
       <div className="list-books-title">
