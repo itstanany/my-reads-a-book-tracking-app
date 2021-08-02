@@ -1,10 +1,11 @@
 /**
  * Static BookShelf Component
  */
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Book from '../BookComponent';
+import { BookShelfPropsTypes } from '../types/type';
 
-const Shelf = (props) => {
+const Shelf: (props: BookShelfPropsTypes) => JSX.Element = (props: BookShelfPropsTypes) => {
   const {
     title, books, onShelfChange,
   } = props;
@@ -18,9 +19,9 @@ const Shelf = (props) => {
         <ol className="books-grid">
           {
             books
-            && books.map((book) => (
+            && books.map((book, index: number) => (
               <li key={book.id}>
-                <Book book={book} key={book.id} onShelfChange={onShelfChange} />
+                <Book book={book} key={book.id} onShelfChange={onShelfChange} index={index} />
               </li>))
           }
         </ol>
@@ -30,8 +31,3 @@ const Shelf = (props) => {
 
 export default Shelf;
 
-// Shelf.propTypes = {
-//   title: PropTypes.string,
-//   books: PropTypes.array,
-//   onShelfChange: PropTypes.func,
-// };
