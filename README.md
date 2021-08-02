@@ -4,9 +4,9 @@
 
 ## Video Demo
 
-A video walk through is available here: https://youtu.be/fmIIIpOau_8 including installation and app overview.
+A video walk through is available here: including installation and app overview.
 
-[![video installation and walk-through](./src/public/imgs/video.png)](https://youtu.be/fmIIIpOau_8)
+[![]()]()
 
 ## What We will be building
 
@@ -17,12 +17,18 @@ In the MyReads project, I created a bookshelf app that allows you to select and 
 - Backend-Server:
   - Provided by Udacity
 - UI (Front-end):
+
   - ReactJS
+
     - React Hooks
-    - Functional Components
+    - Functional Components.
+
+  - Routing: `React Router DOM`
+
   - Typescript
   - HTML
   - style with pure CSS
+
 - Tools:
   - Create-react-app
   - Git version Control System
@@ -31,23 +37,33 @@ In the MyReads project, I created a bookshelf app that allows you to select and 
 
 ## Interactions
 
+### Home page
+
 In this application, the main page displays a list of "shelves" (i.e. categories), each of which contains a number of books. The three shelves are:
 
 - Currently Reading
+  ![Currently Reading](./public/imgs/curre.png)
+
 - Want to Read
+  ![Want to Read](./public/imgs/want.png)
+
 - Read
 
-### Home page
+![Read](./public/imgs/read.png)
 
-![](./src/public/imgs/home.png)
+Each book has a control that lets you select the shelf for that book. When you select a different shelf, the book moves there. Note that the default value for the control should always be the current shelf the book is in.
 
-### API response - valid URL
+![Control Dropdown](./public/imgs/control.png)
 
-![](./src/public/imgs/valid-url-results.png)
+# Search Page `/search`
 
-### Invalid URL message
+The main page also has a link to `/search`, a search page that allows you to find books to add to your library.
 
-![](./src/public/imgs/invalid-url.png)
+![Search Page](./public/imgs/search.png)
+
+The search page has a text input that may be used to find books. As the value of the text input changes, the books that match that query are displayed on the page, along with a control that lets you add the book to your library.
+
+![Search Result](./public/imgs/result.png)
 
 ## Run project
 
@@ -57,76 +73,13 @@ Below shows how to run in development and production mode.
 
 `npm install` or `yarn`
 
-### run in development mode
+### Start the Application
 
-To start the webpack dev server at port 8080
-
-` $ npm run build-dev` or `yarn build-dev`
-
-Start back-end serve
 `npm run start` or `yarn start`
-
-### run in production mode
-
-Generate the dist files and then start server at port 3000
-
-` $ npm run build-prod` or `yarn build-prod`
-
-` $ npm run start` or `yarn start`
 
 ## Configs files
 
 - Webpack
-  - Dev Configs: `webpack.config.dev.js`
-    - Not optimized build
-    - source map
-  - Production `webpack.config.prod.js`
-    - Optimized build
-    - Auto generated HTML from template
+  - Typescript Configs: `tsconfig.json`
 - Dependency
   - `package.json`
-
-## API
-
-The project uses Semantic Text Analysis SDKs from [Meaning Cloud](https://learn.meaningcloud.com/developer/sentiment-analysis/2.1/doc), which provides a powerful and flexible AI-driven content analysis solutions.
-
-## Offline Functionality
-
-The project have service workers set up in webpack to provide the offline functionality of our app. When the service worker is functioning correctly, you will see the below message when you inspect the browser.
-
-![](./src/public/imgs/offline-service-worker.png)
-
-## Testing
-
-Testing is done with Jest. To run test, use the command
-
-`npm run test` or `yarn test`
-
-![](./src/public/imgs/testing.png)
-
-This project is live <a href="https://ahmedalima.github.io/my-reads-a-book-tracking-app/">
-Here
-</a>
-
-https://ahmedalima.github.io/my-reads-a-book-tracking-app/
-
-# To start the Application
-
-### `npm install`
-
-### `npm start`
-
-# FEATURES:
-
-- Categorize books into
-  - Currently reading
-  - Want to Read
-  - Read
-- Add new Books to the your library
-- Remove books from your library
-
-# Technologies Used:
-
-- ReactJS
-- React Router DOM
-- React Hooks with functional component
